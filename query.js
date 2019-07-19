@@ -6,6 +6,7 @@ const { GraphQLObjectType,
 const _ = require('lodash');
 
 let {movies} = require('./data.js');
+let {directors} = require('./data.js');
 const {movieType} = require('./types.js')
 //Define the Query
 const queryType = new GraphQLObjectType({
@@ -24,6 +25,15 @@ const queryType = new GraphQLObjectType({
             },
             resolve : function (source, args) {
                 return _.find(movies,{id: args.id});
+            }
+        },
+        director : {
+            type: directorType,
+            args : {
+                id: { type : GraphQLInt }
+            },
+            resolve : function (source, args) {
+                return _.find(directors, { id : args.id } );
             }
         }
     }
